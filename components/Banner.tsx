@@ -4,12 +4,15 @@ import { baseUrl } from "../constants/movie";
 import { Movie } from "../typings";
 import { FaPlay } from "react-icons/fa";
 import { InformationCircleIcon } from "@heroicons/react/solid";
+import useMovieStore from "../store/movieStore";
 
 interface IProps {
   netflixOriginals: Movie[];
 }
 
 const Banner = ({ netflixOriginals }: IProps) => {
+  const { showModal, setShowModal, currentMovie, setCurrentMovie } = useMovieStore();
+
   const [movie, setMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
@@ -35,7 +38,13 @@ const Banner = ({ netflixOriginals }: IProps) => {
           Play
         </button>
 
-        <button className="bannerButton bg-[gray]/70" onClick={() => {}}>
+        <button
+          className="bannerButton bg-[gray]/70"
+          onClick={() => {
+            setCurrentMovie(movie);
+            setShowModal(true);
+          }}
+        >
           <InformationCircleIcon className="h-5 w-5 md:h-8 md:w-8" /> More Info
         </button>
       </div>

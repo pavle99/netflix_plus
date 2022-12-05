@@ -6,14 +6,18 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@heroicons/react": "v1",
+    "@mui/material": "^5.10.12",
     "firebase": "^9.13.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.39.1",
     "react-icons": "^4.6.0",
-    "tailwind-scrollbar-hide": "^1.1.7"
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
