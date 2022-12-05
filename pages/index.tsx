@@ -4,6 +4,7 @@ import Image from "next/image";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
+import Plans from "../components/Plans";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
 import useMovieStore from "../store/movieStore";
@@ -32,7 +33,13 @@ const Home = ({
   trendingNow,
 }: IProps) => {
   const { showModal } = useMovieStore();
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
+  const subscription = false;
+
+  if (loading || subscription === null) return null;
+
+  if (!subscription) return <Plans />;
+
   return (
     <div className="relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh]">
       <Head>
