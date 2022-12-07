@@ -1,4 +1,5 @@
 import { CheckIcon } from "@heroicons/react/outline";
+import { Product } from "@stripe/firestore-stripe-payments";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
@@ -10,9 +11,15 @@ const plansDescription = [
   "Change or cancel your plan anytime.",
 ];
 
-function Plans() {
+interface IProps {
+  products: Product[];
+}
+
+function Plans({ products }: IProps) {
+  console.log(products);
   const { logout, user } = useAuth();
   const [isBillingLoading, setBillingLoading] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<Product | null>(products[2]);
 
   const subscribeToPlan = () => {
     if (!user) return;
@@ -53,9 +60,15 @@ function Plans() {
 
         <div className="mt-4 flex flex-col space-y-4">
           <div className="flex w-full items-center justify-end self-end md:w-3/5">
-            <div className={`planBox  `}>Standard</div>
-            <div className={`planBox  `}>Standard</div>
-            <div className={`planBox  `}>Standard</div>
+            {products.map((product) => (
+              <div
+                className={`planBox ${selectedPlan?.id === product.id ? "opacity-100" : "opacity-60"}`}
+                key={product.id}
+                onClick={() => setSelectedPlan(product)}
+              >
+                {product.name}
+              </div>
+            ))}
           </div>
         </div>
       </main>

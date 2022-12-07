@@ -1,4 +1,4 @@
-import { getProducts } from "@stripe/firestore-stripe-payments";
+import { getProducts, Product } from "@stripe/firestore-stripe-payments";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -22,6 +22,7 @@ interface IProps {
   horrorMovies: Movie[];
   romanceMovies: Movie[];
   documentaries: Movie[];
+  products: Product[];
 }
 
 const Home = ({
@@ -33,6 +34,7 @@ const Home = ({
   romanceMovies,
   topRated,
   trendingNow,
+  products,
 }: IProps) => {
   const { showModal } = useMovieStore();
   const { user, loading } = useAuth();
@@ -40,7 +42,7 @@ const Home = ({
 
   if (loading || subscription === null) return null;
 
-  if (!subscription) return <Plans />;
+  if (!subscription) return <Plans products={products} />;
 
   return (
     <div className="relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh]">
@@ -73,12 +75,12 @@ const Home = ({
 export default Home;
 
 export const getServerSideProps = async () => {
-  // console.log(payments);
   const products = await getProducts(payments, {
     includePrices: true,
     activeOnly: true,
-  }).catch((err) => console.log(err));
-  console.log(products);
+  })
+    .then((products) => products)
+    .catch((err) => console.log(err));
 
   const [
     netflixOriginals,
@@ -110,6 +112,7 @@ export const getServerSideProps = async () => {
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
       documentaries: documentaries.results,
+      products,
     },
   };
 };
