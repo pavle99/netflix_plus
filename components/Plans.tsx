@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
+import Table from "./Table";
 
 const plansDescription = [
   "Watch all you want. Ad-free.",
@@ -16,7 +17,6 @@ interface IProps {
 }
 
 function Plans({ products }: IProps) {
-  console.log(products);
   const { logout, user } = useAuth();
   const [isBillingLoading, setBillingLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<Product | null>(products[2]);
@@ -30,7 +30,7 @@ function Plans({ products }: IProps) {
   return (
     <div>
       <Head>
-        <title>Netflix</title>
+        <title>Netflix+</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className="border-b border-white/10 bg-[#141414]">
@@ -70,6 +70,8 @@ function Plans({ products }: IProps) {
               </div>
             ))}
           </div>
+
+          <Table products={products} selectedPlan={selectedPlan} />
         </div>
       </main>
     </div>
