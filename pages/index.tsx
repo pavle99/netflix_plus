@@ -1,3 +1,4 @@
+import { getProducts } from "@stripe/firestore-stripe-payments";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -7,6 +8,7 @@ import Modal from "../components/Modal";
 import Plans from "../components/Plans";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
+import payments from "../lib/stripe";
 import useMovieStore from "../store/movieStore";
 import { Movie } from "../typings";
 import requests from "../utils/requests";
@@ -71,6 +73,13 @@ const Home = ({
 export default Home;
 
 export const getServerSideProps = async () => {
+  // console.log(payments);
+  const products = await getProducts(payments, {
+    includePrices: true,
+    activeOnly: true,
+  }).catch((err) => console.log(err));
+  console.log(products);
+
   const [
     netflixOriginals,
     trendingNow,
