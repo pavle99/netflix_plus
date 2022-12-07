@@ -8,8 +8,10 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@firebase/functions": "^0.8.8",
     "@heroicons/react": "v1",
     "@mui/material": "^5.10.12",
+    "@stripe/firestore-stripe-payments": "^0.0.6",
     "firebase": "^9.13.0",
     "next": "latest",
     "react": "18.2.0",
