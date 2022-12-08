@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Table from "./Table";
+import Loader from "./Loader";
 
 const plansDescription = [
   "Watch all you want. Ad-free.",
@@ -72,6 +73,16 @@ function Plans({ products }: IProps) {
           </div>
 
           <Table products={products} selectedPlan={selectedPlan} />
+
+          <button
+            disabled={!selectedPlan || isBillingLoading}
+            className={`mx-auto w-11/12 rounded bg-[#E50914] py-4 text-xl shadow hover:bg-[#f6121d] md:w-[420px] ${
+              isBillingLoading && "opacity-60"
+            }`}
+            onClick={subscribeToPlan}
+          >
+            {isBillingLoading ? <Loader color="dark:fill-gray-300" /> : "Subscribe"}
+          </button>
         </div>
       </main>
     </div>
