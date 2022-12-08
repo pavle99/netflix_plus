@@ -6,6 +6,7 @@ import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Table from "./Table";
 import Loader from "./Loader";
+import { loadCheckout } from "../lib/stripe";
 
 const plansDescription = [
   "Watch all you want. Ad-free.",
@@ -25,6 +26,7 @@ function Plans({ products }: IProps) {
   const subscribeToPlan = () => {
     if (!user) return;
 
+    loadCheckout(selectedPlan?.prices[0].id!);
     setBillingLoading(true);
   };
 
