@@ -11,7 +11,7 @@ const Modal = () => {
   const { currentMovie, setCurrentMovie, showModal, setShowModal } = useMovieStore();
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
   const [addedToList, setAddedToList] = useState(false);
   const [movies, setMovies] = useState<DocumentData[] | Movie[]>([]);
 
