@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import useSubscription from "../hooks/useSubscription";
+import { goToBillingPortal } from "../lib/stripe";
 import Loader from "./Loader";
 
 function Membership() {
@@ -11,6 +12,7 @@ function Membership() {
   const manageSubscription = () => {
     if (subscription) {
       setBillingLoading(true);
+      goToBillingPortal();
     }
   };
 
