@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import Plans from "../components/Plans";
 import Row from "../components/Row";
 import useAuth from "../hooks/useAuth";
+import useList from "../hooks/useList";
 import useSubscription from "../hooks/useSubscription";
 import payments from "../lib/stripe";
 import useMovieStore from "../store/movieStore";
@@ -37,9 +38,10 @@ const Home = ({
   trendingNow,
   products,
 }: IProps) => {
-  const { showModal } = useMovieStore();
+  const { showModal, currentMovie } = useMovieStore();
   const { user, loading } = useAuth();
   const subscription = useSubscription(user);
+  const list = useList(user?.uid);
 
   if (loading || subscription === null) return null;
 
@@ -60,6 +62,8 @@ const Home = ({
           <Row title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
           <Row title="Action Thrillers" movies={actionMovies} />
+
+          {list.length > 0 && <Row title="My List" movies={list} />}
 
           <Row title="Comedies" movies={comedyMovies} />
           <Row title="Scary Movies" movies={horrorMovies} />

@@ -1,9 +1,10 @@
+import { DocumentData } from "firebase/firestore";
 import Image from "next/image";
 import useMovieStore from "../store/movieStore";
 import { Movie } from "../typings";
 
 interface IProps {
-  movie: Movie;
+  movie: Movie | DocumentData;
 }
 
 function Thumbnail({ movie }: IProps) {
