@@ -6,7 +6,10 @@ import { CheckIcon, PlusIcon, ThumbUpIcon, VolumeOffIcon, VolumeUpIcon, XIcon } 
 import { Genre, Element, Movie } from "../typings";
 import ReactPlayer from "react-player/lazy";
 import { FaPlay } from "react-icons/fa";
-import { DocumentData } from "firebase/firestore";
+import { collection, deleteDoc, doc, DocumentData, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from "../lib/firebase";
+import useAuth from "../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 const Modal = () => {
   const { currentMovie, setCurrentMovie, showModal, setShowModal } = useMovieStore();
   const [trailer, setTrailer] = useState("");
@@ -14,6 +17,17 @@ const Modal = () => {
   const [muted, setMuted] = useState(false);
   const [addedToList, setAddedToList] = useState(false);
   const [movies, setMovies] = useState<DocumentData[] | Movie[]>([]);
+  const { user } = useAuth();
+
+  const toastStyle = {
+    background: "white",
+    color: "black",
+    fontWeight: "bold",
+    fontSize: "16px",
+    padding: "15px",
+    borderRadius: "9999px",
+    maxWidth: "1000px",
+  };
 
   useEffect(() => {
     if (!currentMovie) return;
@@ -36,16 +50,52 @@ const Modal = () => {
     fetchMovie();
   }, [currentMovie]);
 
+  const handleClose = () => {
+    setShowModal(false);
+    setCurrentMovie(null);
+    toast.dismiss();
+  };
+
+  useEffect(() => {
+    if (user) {
+      return onSnapshot(collection(db, "customers", user.uid, "myList"), (snapshot) => setMovies(snapshot.docs));
+    }
+  }, [db, currentMovie?.id]);
+
+  useEffect(() => setAddedToList(movies.findIndex((result) => result.data().id === currentMovie?.id) !== -1), [movies]);
+
+  const handleList = async () => {
+    if (addedToList) {
+      await deleteDoc(doc(db, "customers", user!.uid, "myList", currentMovie?.id.toString()!));
+
+      toast(`${currentMovie?.title || currentMovie?.original_name} has been removed from My List`, {
+        duration: 8000,
+        style: toastStyle,
+      });
+    } else {
+      await setDoc(doc(db, "customers", user!.uid, "myList", currentMovie?.id.toString()!), {
+        ...currentMovie,
+      });
+
+      toast(`${currentMovie?.title || currentMovie?.original_name} has been added to My List.`, {
+        duration: 8000,
+        style: toastStyle,
+      });
+    }
+  };
+
   return (
     <MuiModal
       open={showModal}
-      onClose={() => setShowModal(false)}
+      onClose={handleClose}
       className="fixed !top-7 left-0 right-0 z-50 mx-auto w-full max-w-5xl overflow-hidden overflow-y-scroll rounded-md scrollbar-hide"
     >
       <>
+        <Toaster position="bottom-center" />
+
         <button
           className="modalButton absolute right-5 top-5 !z-40 h-9 w-9 border-none bg-[#181818] hover:bg-[#181818]"
-          onClick={() => setShowModal(false)}
+          onClick={handleClose}
         >
           <XIcon className="h-6 w-6" />
         </button>
@@ -65,7 +115,7 @@ const Modal = () => {
                 <FaPlay className="h-7 w-7 text-black" />
                 Play
               </button>
-              <button className="modalButton" onClick={() => {}}>
+              <button className="modalButton" onClick={handleList}>
                 {addedToList ? <CheckIcon className="h-7 w-7" /> : <PlusIcon className="h-7 w-7" />}
               </button>
               <button className="modalButton">
