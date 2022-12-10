@@ -1,27 +1,70 @@
-# Next.js + Tailwind CSS Example
+# Netflix+
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+![Image](link)
 
-## Deploy your own
+## Table of Contents
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+- [Introduction](#prerequisites)
+- [Link to website demo](#installation)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the application](#running-the-application)
+- [APIs](#links-to-used-apis)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## Introduction
 
-## How to use
+Introducing the ultimate entertainment experience - a sleek and modern Netflix clone built using the latest technology. With a responsive fullstack design powered by Firebase, React framework Next.js and the TMDB REST API, this application offers a seamless browsing and streaming experience. In addition to streaming, you can also watch trailers, play videos, and add your favourites to a personal watchlist.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+Authentication is made easy with Firebase, allowing you to securely access your account and personalize your experience. Styled using TailwindCSS, the interface is intuitive and easy on the eyes, making it a joy to browse through the vast collection of movies and TV shows.
+
+But that's not all - the application also allows you to subscribe to monthly plans using Stripe, giving you access to even more content. And if you ever need to, you can easily cancel or change your subscription at any time.
+
+## Link to website demo
+
+[Netflix+](link)
+
+## Tech Stack
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [Next.js](https://nextjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Zustand](https://github.com/pmndrs/zustand/)
+- [Stripe](https://stripe.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+## Prerequisites
+
+Install the following prerequisites:
+
+1. [Node.js 18.17.0 or higher](https://nodejs.org/en/)
+2. [Visual Studio Code](https://code.visualstudio.com/download)
+
+## Installation
+
+### Backend
+
+Connect your firebase, stripe and TMDB and add the API KEYs in the .env file
+
+### Frontend
+
+#### 1. Install dependencies
+
+From the **root** directory run:
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
+npm install
 ```
+
+## Running the application
+
+After supplying the API keys in the .env file, all you need to do is run the frontend:
 
 ```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+cd frontend
+npm run dev
 ```
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+## Links to used APIs
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+[Movie Database](https://www.themoviedb.org/)

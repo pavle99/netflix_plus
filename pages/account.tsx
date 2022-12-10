@@ -6,14 +6,13 @@ import { useState } from "react";
 import Membership from "../components/Membership";
 import useAuth from "../hooks/useAuth";
 import useSubscription from "../hooks/useSubscription";
-import payments from "../lib/stripe";
+import payments, { goToBillingPortal } from "../lib/stripe";
 
 interface Props {
   products: Product[];
 }
 
 function Account({ products }: Props) {
-  console.log(products);
   const { user, logout, loading } = useAuth();
   const subscription = useSubscription(user);
   const [isBillingLoading, setBillingLoading] = useState(false);
@@ -23,7 +22,7 @@ function Account({ products }: Props) {
   return (
     <div className="">
       <Head>
-        <title>Account Settings - Netflix</title>
+        <title>Account Settings - Netflix+</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className="bg-[#141414]">
@@ -50,7 +49,7 @@ function Account({ products }: Props) {
           <div className="col-span-2 font-medium">
             {products.filter((product) => product.id === subscription?.product)[0]?.name}
           </div>
-          <p className="cursor-pointer text-blue-500 hover:underline md:text-right" onClick={() => {}}>
+          <p className="cursor-pointer text-blue-500 hover:underline md:text-right" onClick={goToBillingPortal}>
             Change plan
           </p>
         </div>
