@@ -1,6 +1,9 @@
 # Netflix+
 
-![Image](link)
+![1](https://user-images.githubusercontent.com/73827472/206872544-9fce42c8-47a4-458b-9e81-055bd6b59d71.png)
+![2](https://user-images.githubusercontent.com/73827472/206872548-e49bd105-2e57-47ca-af35-e1bc3078cb96.png)
+![3](https://user-images.githubusercontent.com/73827472/206872550-8119a8c5-b618-4530-872e-dfdda4be1efe.png)
+
 
 ## Table of Contents
 
@@ -22,7 +25,7 @@ But that's not all - the application also allows you to subscribe to monthly pla
 
 ## Link to website demo
 
-[Netflix+](link)
+[Netflix+](https://netflix-plus.vercel.app/)
 
 ## Tech Stack
 
